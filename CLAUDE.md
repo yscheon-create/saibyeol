@@ -76,7 +76,9 @@ compare(profileA, profileB, relationshipType) -> CompatibilityVector
 - 웹만. 네이티브 앱, 연락처 연동, 결제, AI 생성 해설, 관계 이벤트, 그래프 시각화는 모두 다음 버전 (`docs/product-spec.md` 9절).
 - 관계 유형: 가족, 친구, 연인, 직장동료.
 - 기능 다섯 개: 내 프로필 카드 → 초대 링크와 관계 활성화 → 관계 유형별 해설 → 내 관계 목록 → 결과 카드 공유.
-- 기술 스택은 아직 정하지 않았다. 해석 엔진을 순수 함수로 먼저 만들고 테스트한 뒤, 스택 후보와 이유를 소유자에게 설명하고 함께 정한다.
+- 언어는 TypeScript 하나(엔진·서버·화면). 2026-10-19 확정. 만세력 계산은 `lunar-typescript`에 맡기고 한국 기준 보정은 우리 코드에서 한다(`docs/dimensions.md` 만세력 관례).
+- 레포 구조는 npm workspaces. 엔진은 `packages/engine-saju`. 서버·화면 패키지는 아직 없다.
+- 확인 명령: `npm test` (전체 테스트), `npm run typecheck`, `npm run demo -w @saibyeol/engine-saju -- 1990-05-15 14:30 1988-12-03 없음` (엔진 동작 눈으로 보기).
 
 ## 6. 문서 지도
 

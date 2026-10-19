@@ -1,0 +1,16 @@
+{
+  "name": "@saibyeol/engine-saju",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "demo": "tsx scripts/demo.ts"
+  },
+  "dependencies": {
+    "lunar-typescript": "^1.8.6"
+  }
+}
