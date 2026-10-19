@@ -36,12 +36,21 @@ describe("toLevel: 점수 → 세 단계", () => {
   });
 });
 
+describe("유사도 척도: 차이 × SIMILARITY_SCALE(2)", () => {
+  it("차이 0.16이면 aligned, 0.33이면 tense 경계", () => {
+    const near = compare(fake({ drive: 0.5 }), fake({ drive: 0.66 }), "friend");
+    expect(near.dimensions.pace.level).toBe("aligned");
+    const far = compare(fake({ drive: 0.5 }), fake({ drive: 0.84 }), "friend");
+    expect(far.dimensions.pace.level).toBe("tense");
+  });
+});
+
 describe("communication: 두 축 유사도의 평균", () => {
   it("같으면 1, 두 축 모두 반대면 낮다", () => {
     const same = compare(fake({ order: 0.8, speed: 0.3 }), fake({ order: 0.8, speed: 0.3 }), "friend");
     expect(same.dimensions.communication.score).toBeCloseTo(1, 5);
     const opposite = compare(fake({ order: 0.9, speed: 0.9 }), fake({ order: 0.1, speed: 0.1 }), "friend");
-    expect(opposite.dimensions.communication.score).toBeCloseTo(0.2, 5);
+    expect(opposite.dimensions.communication.score).toBeCloseTo(0, 5); // 차이 0.8 × 2 → 0으로 잘림
     expect(opposite.dimensions.communication.level).toBe("tense");
   });
   it("단서는 더 치우친 축에서 나온다", () => {
@@ -60,7 +69,7 @@ describe("emotional: 유사도, 둘 다 과열이면 한 단계 아래", () => {
   });
   it("한쪽만 높으면 그대로 유사도", () => {
     const r = compare(fake({ expression: 0.9 }), fake({ expression: 0.3 }), "romance");
-    expect(r.dimensions.emotional.score).toBeCloseTo(0.4, 5);
+    expect(r.dimensions.emotional.score).toBeCloseTo(0, 5); // 차이 0.6 × 2 = 1.2 → 0
     expect(r.dimensions.emotional.clueB).toBe("contained");
   });
 });
@@ -68,7 +77,7 @@ describe("emotional: 유사도, 둘 다 과열이면 한 단계 아래", () => {
 describe("pace: 유사도", () => {
   it("단서 fast / deliberate / moderate", () => {
     const r = compare(fake({ drive: 0.7 }), fake({ drive: 0.5 }), "coworker");
-    expect(r.dimensions.pace.score).toBeCloseTo(0.8, 5);
+    expect(r.dimensions.pace.score).toBeCloseTo(0.6, 5); // 차이 0.2 × 2 = 0.4
     expect(r.dimensions.pace.clueA).toBe("fast");
     expect(r.dimensions.pace.clueB).toBe("moderate");
   });

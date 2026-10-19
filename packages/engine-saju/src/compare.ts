@@ -7,8 +7,15 @@ import type {
 } from "./types.js";
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+/**
+ * 유사도 척도 계수. 축 값 차이에 곱한 뒤 1에서 뺀다.
+ * 1이면 차이 0.33까지 "잘 맞아요"가 되어 무작위 쌍의 70~85%가 aligned로 쏠린다(2026-10-19 분포 확인).
+ * 2이면 차이 ≤0.165 aligned, ≥0.33 tense — 무작위 쌍 기준 대략 aligned 25~50% / different 30~50% / tense 15~30%.
+ * 첫 사용자 테스트 뒤 조정 대상. docs/dimensions.md "점수 → 단계" 참고.
+ */
+export const SIMILARITY_SCALE = 2;
 /** 유사도. 축 값이 가까울수록 1 */
-const similarity = (a: number, b: number) => 1 - Math.abs(a - b);
+const similarity = (a: number, b: number) => clamp01(1 - Math.abs(a - b) * SIMILARITY_SCALE);
 /** 한 단계 = 점수 척도의 1/3 */
 const ONE_LEVEL = 1 / 3;
 
