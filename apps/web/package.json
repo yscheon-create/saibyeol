@@ -12,7 +12,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:deploy": "prisma migrate deploy",
     "db:generate": "drizzle-kit generate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "vercel-build": "drizzle-kit migrate && next build"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.3",
@@ -37,5 +38,8 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20.9"
   }
 }
