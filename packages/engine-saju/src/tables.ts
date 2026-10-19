@@ -1,5 +1,5 @@
 // 명리 기본 표. 천간·지지의 오행·음양, 지지 본기, 합·충 관계.
-import type { Branch, Element, Polarity, Stem, TenGod } from "./types.js";
+import type { Branch, Element, Polarity, Stem, TenGod } from "./types";
 
 export const STEMS: readonly Stem[] = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
 export const BRANCHES: readonly Branch[] = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];

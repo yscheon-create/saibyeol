@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { toPillars } from "../src/calendar.js";
-import type { SourceDataInput } from "../src/types.js";
+import { toPillars } from "../src/calendar";
+import type { SourceDataInput } from "../src/types";
 
 const solar = (birthDate: string, birthTime: string | null): SourceDataInput => ({
   birthDate, birthTime, calendarType: "solar", isLeapMonth: false, gender: "female",

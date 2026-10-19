@@ -4,3 +4,6 @@ node_modules/
 *.log
 .DS_Store
 dist/
+.next/
+apps/web/.env
+apps/web/next-env.d.ts

@@ -1,12 +1,12 @@
 // derive(): 개인 원천정보 → 파생 프로파일.
 // 규칙의 원본은 docs/dimensions.md "공통 계산 방식"과 공통 4차원 표다. 여기 없는 규칙은 쓰지 않는다.
-import { toPillars } from "./calendar.js";
+import { toPillars } from "./calendar";
 import {
   BRANCH_ELEMENT, BRANCH_MAIN_STEM, ELEMENTS, STEM_ELEMENT, STEM_POLARITY, TEN_GODS, tenGodOf,
-} from "./tables.js";
+} from "./tables";
 import type {
   CommonTraits, DerivedProfile, ElementDistribution, Pillars, SourceDataInput, Stem, TenGodDistribution,
-} from "./types.js";
+} from "./types";
 
 export const ENGINE_VERSION = "0.1.0";
 

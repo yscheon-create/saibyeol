@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* 사이별 — 겉은 가볍게, 속은 진지하게. 따뜻한 종이 위에 먹색 글자. */
+:root {
+  --paper: #faf7f2;
+  --paper-2: #f1ece3;
+  --ink: #1f1b16;
+  --ink-2: #5b544b;
+  --ink-3: #9a9288;
+  --line: #e4ddd1;
+  --accent: #c2410c;      /* 따뜻한 주홍 — 강조 하나 */
+  --accent-soft: #fde7d9;
+  --good: #2f6b4f;
+  --good-soft: #dfeee6;
+  --mid: #8a6a1f;
+  --mid-soft: #f5ead2;
+  --warm: #9c3b2e;
+  --warm-soft: #f7dfdb;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-mid: var(--mid);
+  --color-mid-soft: var(--mid-soft);
+  --color-warm: var(--warm);
+  --color-warm-soft: var(--warm-soft);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+}
+
+html { background: var(--paper); }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 1px 0 rgba(31, 27, 22, 0.03), 0 12px 32px -20px rgba(31, 27, 22, 0.25);
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 18px; border-radius: 999px; font-weight: 600; font-size: 15px;
+  transition: transform .08s ease, opacity .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--ink); color: #fff; }
+.btn-primary:hover { opacity: .9; }
+.btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn-ghost:hover { background: var(--paper-2); }
+.btn-kakao { background: #fee500; color: #191919; }
+.field {
+  width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: #fff;
+  font-size: 16px; outline: none;
+}
+.field:focus { border-color: var(--ink-3); }
+.label { display: block; font-size: 13px; color: var(--ink-2); margin-bottom: 6px; font-weight: 600; }
+.chip { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+.chip-aligned { background: var(--good-soft); color: var(--good); }
+.chip-different { background: var(--mid-soft); color: var(--mid); }
+.chip-tense { background: var(--warm-soft); color: var(--warm); }

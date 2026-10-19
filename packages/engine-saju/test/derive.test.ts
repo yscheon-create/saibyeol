@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { axis, derive } from "../src/derive.js";
-import type { SourceDataInput } from "../src/types.js";
+import { axis, derive } from "../src/derive";
+import type { SourceDataInput } from "../src/types";
 
 const person = (birthDate: string, birthTime: string | null): SourceDataInput => ({
   birthDate, birthTime, calendarType: "solar", isLeapMonth: false, gender: "female",

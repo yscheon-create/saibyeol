@@ -1,6 +1,6 @@
 // 엔진 동작 확인용. 사용: npm run demo -- 1990-05-15 14:30 1988-12-03 없음
 // 화면이 생기기 전까지 결과를 눈으로 보는 용도이며, 사용자 문구가 아니다.
-import { compare, derive } from "../src/index.js";
+import { compare, derive } from "../src/index";
 
 const [dateA, timeA, dateB, timeB] = process.argv.slice(2);
 if (!dateA || !dateB) {

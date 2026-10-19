@@ -8,7 +8,7 @@
 // - 출생시간 모름: 정오(12:00)로 간주해 연·월·일주를 구하고 시주는 null.
 // - 진태양시(경도 보정, 약 -30분)는 첫 버전에서 적용하지 않는다.
 import { Lunar, Solar } from "lunar-typescript";
-import type { Branch, Pillar, Pillars, SourceDataInput, Stem } from "./types.js";
+import type { Branch, Pillar, Pillars, SourceDataInput, Stem } from "./types";
 
 const KST_MINUS_CST_HOURS = 1;
 const NOON = { hour: 12, minute: 0 };

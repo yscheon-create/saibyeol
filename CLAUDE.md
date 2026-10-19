@@ -77,8 +77,12 @@ compare(profileA, profileB, relationshipType) -> CompatibilityVector
 - 관계 유형: 가족, 친구, 연인, 직장동료.
 - 기능 다섯 개: 내 프로필 카드 → 초대 링크와 관계 활성화 → 관계 유형별 해설 → 내 관계 목록 → 결과 카드 공유.
 - 언어는 TypeScript 하나(엔진·서버·화면). 2026-10-19 확정. 만세력 계산은 `lunar-typescript`에 맡기고 한국 기준 보정은 우리 코드에서 한다(`docs/dimensions.md` 만세력 관례).
-- 레포 구조는 npm workspaces. 엔진은 `packages/engine-saju`. 서버·화면 패키지는 아직 없다.
-- 확인 명령: `npm test` (전체 테스트), `npm run typecheck`, `npm run demo -w @saibyeol/engine-saju -- 1990-05-15 14:30 1988-12-03 없음` (엔진 동작 눈으로 보기).
+- 레포 구조는 npm workspaces. 엔진은 `packages/engine-saju`, 웹(화면+서버)은 `apps/web`.
+- 웹 스택(2026-10-19 확정): Next.js(App Router, Turbopack) + Drizzle ORM + PostgreSQL + Auth.js(카카오). 배포는 Vercel, 운영 DB는 Neon 또는 Supabase 예정. Prisma는 이 작업 환경에서 엔진 바이너리를 내려받을 수 없어 쓰지 않는다.
+- 로컬 개발: `apps/web/.env.example`을 `.env`로 복사. 개발용 로그인은 `DEV_LOGIN=1`이고 production에서는 절대 켜지지 않는다. 스키마를 바꾸면 `docs/data-model.md`를 먼저 고치고 `npm run db:generate -w @saibyeol/web` → `npm run db:migrate -w @saibyeol/web`.
+- 서버 모듈 지도: `src/server/source-data.ts`(원천정보 — 유일한 접근점), `src/server/profile.ts`(파생 프로파일·호칭), `src/server/edges.ts`(관계 생성·활성화·철회·조회), `src/server/narrative/`(해설 템플릿·렌더러). 서버 액션은 `src/app/actions.ts`.
+- `apps/web/test/source-data-isolation.test.ts`가 SourceData 격리를 검사한다. 이 테스트를 느슨하게 만드는 변경은 하지 않는다.
+- 확인 명령: `npm test` (전체 테스트, 웹 통합 테스트는 DATABASE_URL 필요), `npm run typecheck`, `npm run dev` (http://localhost:3000), `npm run demo -w @saibyeol/engine-saju -- 1990-05-15 14:30 1988-12-03 없음`.
 
 ## 6. 문서 지도
 

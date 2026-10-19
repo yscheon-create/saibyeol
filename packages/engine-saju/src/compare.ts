@@ -1,10 +1,10 @@
 // compare(): 두 파생 프로파일 → 관계 유형별 정합도 벡터.
 // 첫 버전은 공통 4차원만 계산한다. 유형별 차원은 docs/dimensions.md 표가 채워지면 추가한다.
-import { ENGINE_VERSION } from "./derive.js";
-import { CONTROLS, GENERATES, isBranchClash, isBranchCombination, isStemCombination } from "./tables.js";
+import { ENGINE_VERSION } from "./derive";
+import { CONTROLS, GENERATES, isBranchClash, isBranchCombination, isStemCombination } from "./tables";
 import type {
   CommonDimension, CompatibilityVector, Confidence, DerivedProfile, DimensionResult, Element, Level, RelationshipType,
-} from "./types.js";
+} from "./types";
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 /**

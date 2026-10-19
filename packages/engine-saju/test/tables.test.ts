@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isBranchClash, isBranchCombination, isStemCombination, tenGodOf } from "../src/tables.js";
+import { isBranchClash, isBranchCombination, isStemCombination, tenGodOf } from "../src/tables";
 
 describe("tenGodOf: 일간 기준 십신", () => {
   // 일간 庚(양금) 기준

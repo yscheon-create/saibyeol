@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { compare, confidenceOf, toLevel } from "../src/compare.js";
-import { derive } from "../src/derive.js";
-import type { Branch, DerivedProfile, SourceDataInput, Stem } from "../src/types.js";
-import { STEM_ELEMENT, STEM_POLARITY } from "../src/tables.js";
+import { compare, confidenceOf, toLevel } from "../src/compare";
+import { derive } from "../src/derive";
+import type { Branch, DerivedProfile, SourceDataInput, Stem } from "../src/types";
+import { STEM_ELEMENT, STEM_POLARITY } from "../src/tables";
 
 /** 규칙 검증용 최소 프로파일. 축 값과 일주만 지정한다. */
 function fake(opts: {
