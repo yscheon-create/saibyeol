@@ -84,14 +84,23 @@ compare(profileA, profileB, relationshipType) -> CompatibilityVector
 - `apps/web/test/source-data-isolation.test.ts`가 SourceData 격리를 검사한다. 이 테스트를 느슨하게 만드는 변경은 하지 않는다.
 - 확인 명령: `npm test` (전체 테스트, 웹 통합 테스트는 DATABASE_URL 필요), `npm run typecheck`, `npm run dev` (http://localhost:3000), `npm run demo -w @saibyeol/engine-saju -- 1990-05-15 14:30 1988-12-03 없음`.
 
-## 6. 문서 지도
+## 6. 현재 상태 (2026-10-23)
+
+- 배포됨: https://saibyeol.vercel.app (카카오 로그인 동작). 기능 1~4 사용 가능. 운영 정보는 `docs/operations.md`.
+- 프로필 카드: "타고난 결" 문단 + 성향 세 줄.
+- 다음 작업: 관계 매뉴얼(`docs/relationship-manual.md`) → 기획자의 문장 다듬기 → 첫 사용자 테스트 → 기능 5 공유 카드.
+- 이 대화의 모든 결정은 레포에 적혀 있다. 다른 세션(Claude Code 등)에서 이 레포를 열면 여기서부터 이어가면 된다.
+
+## 7. 문서 지도
 
 | 파일 | 내용 |
 | --- | --- |
 | `docs/product-spec.md` | 제품 명세서 v0.1 전체. 결정사항의 원본 |
 | `docs/data-model.md` | 엔티티, 필드, 상태 전이, 접근 규칙 |
-| `docs/dimensions.md` | 관계 유형별 해설 차원 정의. 명리 규칙 대응표는 아직 비어 있음 |
-| `docs/narrative-templates.md` | 해설 문장 템플릿. 형식과 예시 한 차원만 있음, 나머지는 기획자가 작성 |
+| `docs/dimensions.md` | 관계 유형별 해설 차원 정의, 공통 4차원 명리 규칙(구현됨), 만세력 관례 |
+| `docs/narrative-templates.md` | 해설 문장 템플릿 구조, 타고난 결 문단 구조. 문장 초안은 코드(`apps/web/src/server/narrative/`)에 있고 기획자가 다듬는다 |
 | `docs/patent-concepts.md` | 특허 발명설명서의 개념을 개발 용어로 번역한 요약 |
+| `docs/relationship-manual.md` | 관계 매뉴얼("○○를 대할 때") 구조·예시·확정 사항. 다음 구현 대상 |
+| `docs/operations.md` | 배포 주소, 외부 서비스, 환경 변수 위치, 겪은 문제와 해결, 운영 할 일 |
 
 문서에 없는 결정을 내려야 하면, 코드에 박아 넣기 전에 해당 문서에 먼저 적고 소유자에게 알린다.

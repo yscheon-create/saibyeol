@@ -4,7 +4,7 @@
 
 내가 아는 사람과의 관계를, 관계마다 다르게 읽어주는 관계 이해 서비스.
 
-현재 상태: 엔진(`packages/engine-saju`)과 웹(`apps/web`, 기능 1~4)이 돌아간다. Vercel에 배포되어 있고 카카오 로그인 연결 중.
+현재 상태: https://saibyeol.vercel.app 에 배포되어 있고 카카오 로그인이 동작한다. 기능 1~4 사용 가능. 다음은 관계 매뉴얼.
 
 ```
 npm install
@@ -18,3 +18,5 @@ npm run demo -w @saibyeol/engine-saju -- 1990-05-15 14:30 1988-12-03 없음
 - 해설 차원: [`docs/dimensions.md`](docs/dimensions.md)
 - 해설 템플릿: [`docs/narrative-templates.md`](docs/narrative-templates.md)
 - 특허 개념 대응: [`docs/patent-concepts.md`](docs/patent-concepts.md)
+- 관계 매뉴얼: [`docs/relationship-manual.md`](docs/relationship-manual.md)
+- 운영 환경: [`docs/operations.md`](docs/operations.md)
