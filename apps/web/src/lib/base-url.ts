@@ -2,9 +2,20 @@
 // 배포별 임시 주소(…-abc123-….vercel.app)가 링크에 섞이지 않도록 환경 변수 NEXT_PUBLIC_APP_URL을 우선한다.
 import { headers } from "next/headers";
 
+/** 우선순위: NEXT_PUBLIC_APP_URL(직접 지정) → Vercel 대표 주소(자동 제공) → AUTH_URL → 요청 헤더 */
+export function fixedBaseUrl(): string | null {
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL.replace(/\/+$/, "");
+  // Vercel이 production 배포에 자동으로 넣어주는 대표 도메인 (예: saibyeol.vercel.app)
+  if (process.env.VERCEL_ENV === "production" && process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.AUTH_URL && /^https?:\/\//.test(process.env.AUTH_URL)) return process.env.AUTH_URL.replace(/\/+$/, "");
+  return null;
+}
+
 export async function baseUrl(): Promise<string> {
-  const fixed = process.env.NEXT_PUBLIC_APP_URL ?? process.env.AUTH_URL;
-  if (fixed && /^https?:\/\//.test(fixed)) return fixed.replace(/\/+$/, "");
+  const fixed = fixedBaseUrl();
+  if (fixed) return fixed;
   const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
   const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
