@@ -1,9 +1,27 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { currentUserId } from "@/auth";
+import { inviteMessage } from "@/lib/base-url";
 import { acceptInvite, acceptInviteExisting } from "@/app/actions";
 import { SourceDataForm } from "@/components/SourceDataForm";
 import { getInvitePreview, RELATIONSHIP_TYPE_LABEL } from "@/server/edges";
 import { getDerivedProfile, getDisplayName } from "@/server/profile";
+
+/** 카카오톡 등 메신저의 링크 미리보기에 쓰이는 제목·설명. 원천정보는 없다. */
+export async function generateMetadata(props: PageProps<"/i/[token]">): Promise<Metadata> {
+  const { token } = await props.params;
+  const preview = await getInvitePreview(token).catch(() => null);
+  if (!preview || preview.state !== "candidate" || preview.expired) {
+    return { title: "사이별 초대장", description: "같은 나라도, 사이마다 다르게." };
+  }
+  const title = `${preview.inviterName}님의 초대장 — 사이별`;
+  const description = inviteMessage(preview.inviterName);
+  return {
+    title, description,
+    openGraph: { title, description, siteName: "사이별", type: "website" },
+    twitter: { card: "summary", title, description },
+  };
+}
 
 export default async function InvitePage(props: PageProps<"/i/[token]">) {
   const { token } = await props.params;
@@ -19,9 +37,12 @@ export default async function InvitePage(props: PageProps<"/i/[token]">) {
   const header = (
     <>
       <p className="text-xs font-semibold text-accent">초대장</p>
-      <h1 className="text-2xl font-bold tracking-tight mt-1">
-        {preview.inviterName}님이<br />당신과의 사이를 알고 싶어 해요
+      <h1 className="text-2xl font-bold tracking-tight mt-1 leading-snug">
+        {preview.inviterName}님이<br />당신의 결을 더 알고 싶어 해요
       </h1>
+      <p className="mt-3 leading-relaxed">
+        정보를 입력하고 {preview.inviterName}님의 결도 함께 알아보세요.
+      </p>
       <p className="text-ink-2 text-sm mt-3 leading-relaxed">
         {preview.inviterName}님은 당신을 <b>{preview.counterpartLabel}</b>({typesText})으로 등록했어요.
         당신이 직접 입력한 뒤에야 두 사람의 사이가 열리고, 결과는 두 분 모두에게 똑같이 보여요.

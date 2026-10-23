@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { headers } from "next/headers";
 import { currentUserId } from "@/auth";
 import { revokeRelationship } from "@/app/actions";
 import { CopyLink } from "@/components/CopyLink";
 import { getEdgeResult, RELATIONSHIP_TYPE_LABEL } from "@/server/edges";
 import { FOOTER } from "@/server/narrative/templates";
+import { baseUrl, inviteMessage } from "@/lib/base-url";
 import type { RelationshipType } from "@saibyeol/engine-saju";
 
 export default async function ResultPage(props: PageProps<"/r/[edgeId]">) {
@@ -21,10 +21,8 @@ export default async function ResultPage(props: PageProps<"/r/[edgeId]">) {
 
   // ─── 초대 대기 (A만 볼 수 있음) ───
   if (view.state === "candidate") {
-    const h = await headers();
-    const host = h.get("x-forwarded-host") ?? h.get("host") ?? "localhost:3000";
-    const proto = h.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
-    const url = `${proto}://${host}/i/${view.inviteToken}`;
+    const url = `${await baseUrl()}/i/${view.inviteToken}`;
+    const message = inviteMessage(me);
     return (
       <section className="pt-8">
         <p className="text-xs font-semibold text-mid">초대 대기</p>
@@ -32,7 +30,7 @@ export default async function ResultPage(props: PageProps<"/r/[edgeId]">) {
         <p className="text-ink-2 text-sm mt-3 leading-relaxed">
           {other}이(가) 링크를 열어 본인 정보를 직접 입력하면 두 사람의 사이가 열려요. 링크는 14일 동안 유효해요.
         </p>
-        <div className="card p-5 mt-6"><CopyLink url={url} /></div>
+        <div className="card p-5 mt-6"><CopyLink url={url} message={message} /></div>
         <p className="text-xs text-ink-3 mt-4">관계: {view.types.map((t) => RELATIONSHIP_TYPE_LABEL[t]).join(" · ")}</p>
         <form action={revokeRelationship} className="mt-10">
           <input type="hidden" name="edgeId" value={view.edgeId} />

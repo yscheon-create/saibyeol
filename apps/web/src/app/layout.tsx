@@ -4,8 +4,10 @@ import "./globals.css";
 import { auth } from "@/auth";
 
 export const metadata: Metadata = {
-  title: "사이별 — 같은 나라도, 사이마다 다르게",
+  title: { default: "사이별 — 같은 나라도, 사이마다 다르게", template: "%s" },
   description: "내가 아는 사람과의 관계를, 관계마다 다르게 읽어주는 관계 이해 서비스",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? process.env.AUTH_URL ?? "https://saibyeol.vercel.app"),
+  openGraph: { siteName: "사이별", locale: "ko_KR", type: "website" },
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
