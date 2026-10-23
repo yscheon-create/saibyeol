@@ -5,7 +5,11 @@ export function ProfileCard({ name, summary }: { name: string; summary: ProfileC
     <div className="card p-6">
       <p className="text-xs font-semibold text-accent">나의 결</p>
       <h2 className="text-2xl font-bold mt-1 tracking-tight">{name}</h2>
-      <dl className="mt-5 grid gap-4">
+      <div className="mt-5">
+        <p className="text-xs text-ink-3 font-semibold">타고난 결</p>
+        <p className="mt-1 leading-relaxed">{summary.nature.text}</p>
+      </div>
+      <dl className="mt-6 pt-5 border-t border-line grid gap-4">
         {summary.lines.map((l) => (
           <div key={l.label}>
             <dt className="text-xs text-ink-3 font-semibold">{l.label}</dt>

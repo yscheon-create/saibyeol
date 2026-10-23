@@ -3,6 +3,7 @@ import type { DerivedProfile } from "@saibyeol/engine-saju";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { derivedProfiles, users } from "@/db/schema";
+import { describeNature } from "./narrative/nature";
 
 export async function getDerivedProfile(userId: string): Promise<DerivedProfile | null> {
   const row = await db.query.derivedProfiles.findFirst({ where: eq(derivedProfiles.userId, userId) });
@@ -24,6 +25,8 @@ export async function setDisplayName(userId: string, displayName: string): Promi
 
 /** 프로필 카드에 쓰는 성향 요약. 원천정보나 명리 용어 없이 행동 문장만 쓴다. */
 export interface ProfileCardSummary {
+  /** 타고난 결 — 자연의 이미지로 쓴 한 문단 */
+  nature: { image: string; season: string; text: string };
   lines: { label: string; text: string }[];
   hasBirthTime: boolean;
 }
@@ -44,6 +47,7 @@ export function summarizeProfile(p: DerivedProfile): ProfileCardSummary {
   );
   const drive = pick(p.traits.pace.drive, "결정도 수정도 빠른 편", "확인하고 움직이는 편", "상황을 보며 속도를 조절하는 편");
   return {
+    nature: describeNature(p),
     hasBirthTime: p.hasBirthTime,
     lines: [
       { label: "대화의 결", text: `${order}이고, ${speed}이에요.` },
